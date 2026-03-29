@@ -204,3 +204,7 @@ stellar contract invoke \
 ## License
 
 This project is open-source and available under the [MIT License](LICENSE).
+## Contract deployment details
+Contract id: 38e5741833640746c8c769af343b7ba8b546f097dbba80b6e8864f5622b9b952
+Contract screenshot:<img width="1859" height="959" alt="image" src="https://github.com/user-attachments/assets/8b8b527e-efd0-48d4-b75d-fc57b6a7b885" />
+
