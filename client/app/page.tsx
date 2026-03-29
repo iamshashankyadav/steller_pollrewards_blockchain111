@@ -77,15 +77,15 @@ export default function Home() {
 
           <h1 className="mb-3">
             <span className="block text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1]">
-              <span className="text-white">Supply Chain </span>
+              <span className="text-white">Poll </span>
               <span className="bg-gradient-to-r from-[#7c6cf0] via-[#4fc3f7] to-[#7c6cf0] bg-[length:200%_auto] animate-gradient-shift bg-clip-text text-transparent">
-                on the Blockchain
+                Rewards
               </span>
             </span>
           </h1>
 
           <p className="mx-auto max-w-lg text-sm sm:text-base leading-relaxed text-white/40">
-            Register products, track shipments, and verify authenticity — immutably on Stellar.
+            Create transparent polls on Stellar blockchain. Vote and earn tokens — every voice counts, and gets rewarded.
           </p>
 
           {/* Inline stats */}
@@ -93,7 +93,7 @@ export default function Home() {
             {[
               { label: "Finality", value: "~5s" },
               { label: "Cost", value: "<$0.01" },
-              { label: "Network", value: "Testnet" },
+              { label: "Network", value: "Stellar" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <p className="text-lg sm:text-xl font-bold text-white/90 font-mono">{stat.value}</p>

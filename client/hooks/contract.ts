@@ -24,7 +24,7 @@ import {
 // CONSTANTS — Update these for your contract
 // ============================================================
 
-/** Your deployed Soroban contract ID */
+/** Your deployed Soroban contract ID for Poll Rewards */
 export const CONTRACT_ADDRESS =
   "CDJVMAX34YRCQ5JFC6SIOQOVSUY6XWEFYJOLF3SBCKU7CMI3IAP6HPWN";
 
@@ -212,55 +212,102 @@ export function toScValBool(value: boolean): xdr.ScVal {
 }
 
 // ============================================================
-// Supply Chain Tracker — Contract Methods
+// Poll Reward — Contract Methods
 // ============================================================
 
 /**
- * Add a product to the supply chain.
- * Calls: add_product(product_id: String, origin: String)
+ * Create a new poll.
+ * Calls: create_poll(title: String, option_a: String, option_b: String, reward_per_vote: u64) -> u64
  */
-export async function addProduct(
+export async function createPoll(
   caller: string,
-  productId: string,
-  origin: string
+  title: string,
+  optionA: string,
+  optionB: string,
+  rewardPerVote: number
 ) {
   return callContract(
-    "add_product",
-    [toScValString(productId), toScValString(origin)],
+    "create_poll",
+    [
+      toScValString(title),
+      toScValString(optionA),
+      toScValString(optionB),
+      toScValU32(rewardPerVote)
+    ],
     caller,
     true
   );
 }
 
 /**
- * Update a product's status.
- * Calls: update_status(product_id: String, new_status: String)
+ * Cast a vote in a poll.
+ * Calls: cast_vote(poll_id: u64, voter_id: u64, choice: u64) -> u64
  */
-export async function updateProductStatus(
+export async function castVote(
   caller: string,
-  productId: string,
-  newStatus: string
+  pollId: number,
+  voterId: number,
+  choice: number
 ) {
   return callContract(
-    "update_status",
-    [toScValString(productId), toScValString(newStatus)],
+    "cast_vote",
+    [toScValU32(pollId), toScValU32(voterId), toScValU32(choice)],
     caller,
     true
   );
 }
 
 /**
- * Get product details (read-only).
- * Calls: get_product(product_id: String) -> Map<Symbol, String>
- * Returns: { origin: string, status: string } or null
+ * Close a poll.
+ * Calls: close_poll(poll_id: u64)
  */
-export async function getProduct(
-  productId: string,
+export async function closePoll(
+  caller: string,
+  pollId: number
+) {
+  return callContract(
+    "close_poll",
+    [toScValU32(pollId)],
+    caller,
+    true
+  );
+}
+
+/**
+ * Get poll details (read-only).
+ * Calls: view_poll(poll_id: u64) -> Poll
+ */
+export async function getPoll(
+  pollId: number,
   caller?: string
 ) {
   return readContract(
-    "get_product",
-    [toScValString(productId)],
+    "view_poll",
+    [toScValU32(pollId)],
+    caller
+  );
+}
+
+/**
+ * Get global poll statistics (read-only).
+ * Calls: view_poll_stats() -> PollStats
+ */
+export async function getPollStats(caller?: string) {
+  return readContract("view_poll_stats", [], caller);
+}
+
+/**
+ * Get vote record for a voter in a poll (read-only).
+ * Calls: view_vote_record(poll_id: u64, voter_id: u64) -> VoteRecord
+ */
+export async function getVoteRecord(
+  pollId: number,
+  voterId: number,
+  caller?: string
+) {
+  return readContract(
+    "view_vote_record",
+    [toScValU32(pollId), toScValU32(voterId)],
     caller
   );
 }
