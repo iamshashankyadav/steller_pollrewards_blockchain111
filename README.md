@@ -288,4 +288,6 @@ Contract id: 38e5741833640746c8c769af343b7ba8b546f097dbba80b6e8864f5622b9b952
 Contract screenshot:<img width="1859" height="959" alt="image" src="https://github.com/user-attachments/assets/8b8b527e-efd0-48d4-b75d-fc57b6a7b885" />
 ## screenshot frontend
 <img width="1919" height="874" alt="image" src="https://github.com/user-attachments/assets/c62d7eea-9f21-4bcb-9770-fd4ad351c408" />
+<img width="1824" height="843" alt="image" src="https://github.com/user-attachments/assets/290e5cec-7858-4d1e-a6e0-6d6e9693ab95" />
+<img width="1919" height="848" alt="image" src="https://github.com/user-attachments/assets/1dab1ea0-5e20-499c-a83a-3c5e930c31a4" />
 
