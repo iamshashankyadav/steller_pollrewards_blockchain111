@@ -20,7 +20,7 @@ This project is ideal for DAOs, community governance systems, product feedback l
 
 ## Project Vision
 
-> *"Make every voice count — and reward it."*
+> _"Make every voice count — and reward it."_
 
 The vision behind Poll Reward is to solve two fundamental problems in traditional polling systems:
 
@@ -33,14 +33,14 @@ By leveraging the immutability and transparency of the Stellar blockchain throug
 
 ## Key Features
 
-| Feature | Description |
-|---|---|
-| 🗳️ **On-Chain Poll Creation** | Any authorized user can create a poll with a title, two voting options, and a configurable reward per vote. |
-| 💰 **Automatic Token Rewards** | Voters are automatically rewarded with tokens upon casting a valid vote — no manual distribution needed. |
-| 🔒 **Double-Vote Prevention** | The contract enforces one-vote-per-voter-per-poll using a unique `(poll_id, voter_id)` mapping stored on-chain. |
-| 📊 **Live Poll Statistics** | Global stats including total polls, active polls, total votes, and total rewards distributed are always queryable. |
-| ✅ **Poll Lifecycle Management** | Admins can open and close polls, giving full control over the polling period. |
-| 🔍 **Transparent Vote Records** | Every vote record (poll ID, voter ID, choice, reward, timestamp) is stored on the ledger and publicly verifiable. |
+| Feature                          | Description                                                                                                        |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| 🗳️ **On-Chain Poll Creation**    | Any authorized user can create a poll with a title, two voting options, and a configurable reward per vote.        |
+| 💰 **Automatic Token Rewards**   | Voters are automatically rewarded with tokens upon casting a valid vote — no manual distribution needed.           |
+| 🔒 **Double-Vote Prevention**    | The contract enforces one-vote-per-voter-per-poll using a unique `(poll_id, voter_id)` mapping stored on-chain.    |
+| 📊 **Live Poll Statistics**      | Global stats including total polls, active polls, total votes, and total rewards distributed are always queryable. |
+| ✅ **Poll Lifecycle Management** | Admins can open and close polls, giving full control over the polling period.                                      |
+| 🔍 **Transparent Vote Records**  | Every vote record (poll ID, voter ID, choice, reward, timestamp) is stored on the ledger and publicly verifiable.  |
 
 ---
 
@@ -51,6 +51,7 @@ The contract exposes **4 core functions** and **2 view functions**:
 ### Core Functions
 
 #### `create_poll(env, title, option_a, option_b, reward_per_vote) → u64`
+
 Creates a new poll on-chain with two voting options and a reward amount per vote. Returns the unique `poll_id` of the newly created poll.
 
 - Increments the global poll counter
@@ -61,6 +62,7 @@ Creates a new poll on-chain with two voting options and a reward amount per vote
 ---
 
 #### `cast_vote(env, poll_id, voter_id, choice) → u64`
+
 Allows a voter to cast their vote (choice: `1` = Option A, `2` = Option B) on an active poll. Returns the number of reward tokens earned.
 
 - Validates that the poll is **active**
@@ -72,6 +74,7 @@ Allows a voter to cast their vote (choice: `1` = Option A, `2` = Option B) on an
 ---
 
 #### `close_poll(env, poll_id)`
+
 Closes an active poll, preventing any further votes from being cast.
 
 - Sets `is_active` to `false`
@@ -81,6 +84,7 @@ Closes an active poll, preventing any further votes from being cast.
 ---
 
 #### `view_poll(env, poll_id) → Poll`
+
 Returns the full details of a poll including title, options, vote counts, reward per vote, status, and creation time. Returns a default `Not_Found` object if the poll does not exist.
 
 ---
@@ -88,7 +92,9 @@ Returns the full details of a poll including title, options, vote counts, reward
 ### View / Query Functions
 
 #### `view_poll_stats(env) → PollStats`
+
 Returns the global statistics object containing:
+
 - `total_polls` — All polls ever created
 - `active_polls` — Currently open polls
 - `total_votes` — All votes ever cast
@@ -97,6 +103,7 @@ Returns the global statistics object containing:
 ---
 
 #### `view_vote_record(env, poll_id, voter_id) → VoteRecord`
+
 Returns a specific voter's vote record for a given poll, including their choice, reward received, and timestamp of vote. Returns a default zero-value record if no vote exists.
 
 ---
@@ -138,16 +145,16 @@ pub struct PollStats {
 
 The current contract lays a minimal but solid foundation. The following enhancements are planned for future iterations:
 
-| Roadmap Item | Description |
-|---|---|
-| 🏆 **Multi-Option Polls** | Extend polls to support more than 2 options (e.g., up to 6 choices) for richer data collection. |
-| ⏰ **Time-Locked Polls** | Automatically close polls after a configurable deadline using ledger timestamps — no manual intervention needed. |
-| 🪙 **Native Token Integration** | Integrate with Stellar's native asset layer or a custom SAC (Stellar Asset Contract) to issue real on-chain tokens as rewards. |
-| 🧑‍⚖️ **Role-Based Access Control** | Introduce admin roles so only whitelisted addresses can create or close polls. |
-| 📈 **Weighted Voting** | Allow votes to carry different weights based on token holdings or reputation scores. |
-| 🌐 **Frontend dApp** | Build a React/Next.js frontend that interacts with this contract via the Soroban JS SDK for a full end-to-end polling experience. |
-| 🔗 **Cross-Contract Reward Hooks** | Enable reward tokens to automatically trigger staking, NFT minting, or other DeFi actions upon a successful vote. |
-| 🗃️ **Poll Archiving** | Implement an archive mechanism that moves expired polls to cold storage to reduce ledger footprint and costs. |
+| Roadmap Item                       | Description                                                                                                                       |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| 🏆 **Multi-Option Polls**          | Extend polls to support more than 2 options (e.g., up to 6 choices) for richer data collection.                                   |
+| ⏰ **Time-Locked Polls**           | Automatically close polls after a configurable deadline using ledger timestamps — no manual intervention needed.                  |
+| 🪙 **Native Token Integration**    | Integrate with Stellar's native asset layer or a custom SAC (Stellar Asset Contract) to issue real on-chain tokens as rewards.    |
+| 🧑‍⚖️ **Role-Based Access Control**   | Introduce admin roles so only whitelisted addresses can create or close polls.                                                    |
+| 📈 **Weighted Voting**             | Allow votes to carry different weights based on token holdings or reputation scores.                                              |
+| 🌐 **Frontend dApp**               | Build a React/Next.js frontend that interacts with this contract via the Soroban JS SDK for a full end-to-end polling experience. |
+| 🔗 **Cross-Contract Reward Hooks** | Enable reward tokens to automatically trigger staking, NFT minting, or other DeFi actions upon a successful vote.                 |
+| 🗃️ **Poll Archiving**              | Implement an archive mechanism that moves expired polls to cold storage to reduce ledger footprint and costs.                     |
 
 ---
 
@@ -201,10 +208,81 @@ stellar contract invoke \
 
 ---
 
+## Frontend
+
+The project includes a modern, minimalistic React/Next.js frontend that provides an intuitive interface for interacting with the Poll Rewards smart contract.
+
+### Frontend Features
+
+- **📊 Statistics Dashboard**: View real-time poll metrics (total polls, active polls, total votes, rewards distributed)
+- **🗳️ Poll Creation**: Create new polls with custom titles, two options, and reward amounts
+- **🎯 Voting Interface**: Cast votes in active polls with instant reward notifications
+- **📱 Responsive Design**: Modern UI that works seamlessly on desktop, tablet, and mobile
+- **🔗 Wallet Integration**: Freighter wallet support for secure Stellar transactions
+- **✨ Real-time Updates**: Live transaction status and error feedback
+
+### Frontend Stack
+
+- **Next.js 14** - React framework with App Router
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Utility-first styling
+- **@stellar/stellar-sdk** - Stellar blockchain integration
+- **@stellar/freighter-api** - Wallet connection and signing
+
+### Getting Started with Frontend
+
+1. **Navigate to client directory**:
+
+   ```bash
+   cd client
+   ```
+
+2. **Install dependencies**:
+
+   ```bash
+   npm install
+   ```
+
+3. **Start development server**:
+
+   ```bash
+   npm run dev
+   ```
+
+4. **Open browser**:
+   - Visit [http://localhost:3000](http://localhost:3000)
+   - Connect your Freighter wallet
+   - Start creating and voting in polls!
+
+### Frontend Components
+
+- **Statistics Tab**: Global poll metrics and blockchain activity
+- **Create Poll Tab**: Form to set up new polls with rewards
+- **Vote Tab**: Select poll ID and vote for Option A or B
+- **Close Poll Tab**: Admin function to end voting periods
+
+### Frontend Structure
+
+```
+client/
+├── app/              # Next.js App Router pages
+├── components/       # React components
+│   ├── Contract.tsx  # Main poll interaction UI
+│   ├── Navbar.tsx    # Navigation and wallet connection
+│   └── ui/           # Reusable UI components
+├── hooks/
+│   └── contract.ts   # Soroban contract interaction helpers
+├── lib/              # Utility functions
+└── public/           # Static assets
+```
+
+---
+
 ## License
 
 This project is open-source and available under the [MIT License](LICENSE).
+
 ## Contract deployment details
+
 Contract id: 38e5741833640746c8c769af343b7ba8b546f097dbba80b6e8864f5622b9b952
 Contract screenshot:<img width="1859" height="959" alt="image" src="https://github.com/user-attachments/assets/8b8b527e-efd0-48d4-b75d-fc57b6a7b885" />
-
